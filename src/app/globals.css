@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #364a5e;
+  --color-teal-dark: #398b96;
+  --color-turquoise: #119eb1;
+  --color-orange: #f28c3a;
+  --color-blue-light: #b5d3ec;
+  --color-blue-vlight: #e0eff9;
+  --color-yellow-calendar: #fbbf24;
+
+  --font-sans: var(--font-nunito), Arial, Helvetica, sans-serif;
+
+  --animate-bg-gradient: gradientMove 15s ease infinite;
+  
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-blue-vlight text-navy font-sans antialiased selection:bg-orange selection:text-white;
+  }
+
+  /* SVG Noise generator inline */
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 50;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Anti auto-zoom sur iOS / Safari Mobile lors du tap sur un champ */
+@media screen and (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
